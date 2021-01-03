@@ -1,16 +1,19 @@
 import { Canvas } from "react-three-fiber";
 import { Suspense } from "react";
 import { OrbitControls } from "@react-three/drei";
-import { atom, Provider } from "jotai";
-import { Color, State, Vector3 } from "./types";
+import { Provider, useAtom } from "jotai";
+import { Color, State } from "./types";
 import Chessboard from "./Chessboard";
 import Figure from "./Figure";
-import initial from "./initial";
+import { gameAtom, hoveredAtom } from "./state";
+import Square from "./Square";
 
 const Figures = ({ color }: { color: Color }) => {
+  const [game] = useAtom(gameAtom);
+
   return (
     <>
-      {initial.figures[color].map((figure) => {
+      {game.figures[color].map((figure) => {
         return (
           <Figure
             key={`(${figure.position[0]},${figure.position[1]})`}
@@ -23,6 +26,36 @@ const Figures = ({ color }: { color: Color }) => {
     </>
   );
 };
+
+const AvailableMoves = () => {
+  const [hovered] = useAtom(hoveredAtom);
+  const [game, setGame] = useAtom(gameAtom);
+
+  if (hoveredAtom == null) {
+    return null;
+  }
+
+  const available = [
+    [3, 2],
+    // [6, 6],
+  ];
+
+  return (
+    <>
+      {available.map((move) => (
+        <Square
+          key={`(${move[0]},${move[1]})`}
+          x={move[0]}
+          y={move[1]}
+          z={0.01}
+          color="#ff00ff"
+          size={0.5}
+        />
+      ))}
+    </>
+  );
+};
+
 const App = () => {
   return (
     <Canvas concurrent pixelRatio={[1, 2]} camera={{ position: [4, 10, 0] }}>
@@ -38,6 +71,7 @@ const App = () => {
           <Chessboard />
           <Figures color="black" />
           <Figures color="white" />
+          <AvailableMoves />
         </Suspense>
         {/* <OrbitControls
         minPolarAngle={Math.PI / 2}
