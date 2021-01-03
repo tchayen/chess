@@ -5,7 +5,7 @@ const Chessboard = () => {
     <>
       {fields.map((x) =>
         fields.map((y) => (
-          <group key={`(${x},${y})`} position={[x, 0, y]}>
+          <group key={`(${x},${y})`} position={[x - 4, 0, y - 4]}>
             <mesh>
               <boxBufferGeometry attach="geometry" args={[1, 0, 1]} />
               <meshStandardMaterial

@@ -1,26 +1,39 @@
-import { Figure, Vector3 } from "./types";
+import { Figure, Position, Color } from "./types";
 import { useGLTF } from "@react-three/drei/useGLTF";
 import { useState } from "react";
+import { useAtom } from "jotai";
+import { hoveredAtom } from "./state";
+import { arrayEqual } from "./utils";
 
 useGLTF.preload("/figures.gltf");
 
 const Figure = ({
   figure,
   position,
+  color,
 }: {
   figure: Figure;
-  position: Vector3;
+  position: Position;
+  color: Color;
 }) => {
   const { nodes } = useGLTF("/figures.gltf");
-  const [color, setColor] = useState("#fff");
+  const adjusted = [position[0] - 4, 0, position[1] - 4];
+  const [hovered, setHovered] = useAtom(hoveredAtom);
+
   return (
-    <group scale={[0.7, 0.7, 0.7]} position={position} dispose={null}>
+    <group scale={[0.7, 0.7, 0.7]} position={adjusted} dispose={null}>
       <mesh
-        onPointerOver={() => setColor("#ff00ff")}
-        onPointerOut={() => setColor("#fff")}
+        onPointerOver={() => setHovered(position)}
+        onPointerOut={() => setHovered(null)}
         geometry={nodes[figure].geometry}
       >
-        <meshStandardMaterial color={color} />
+        <meshStandardMaterial
+          color={
+            hovered !== null && arrayEqual(hovered, position)
+              ? "#ff00ff"
+              : color
+          }
+        />
       </mesh>
     </group>
   );
