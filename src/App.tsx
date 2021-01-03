@@ -8,18 +8,18 @@ import Figure from "./Figure";
 import { gameAtom, hoveredAtom } from "./state";
 import Square from "./Square";
 
-const Figures = ({ color }: { color: Color }) => {
+const Figures = () => {
   const [game] = useAtom(gameAtom);
 
   return (
     <>
-      {game.figures[color].map((figure) => {
+      {game.figures.map((figure) => {
         return (
           <Figure
             key={`(${figure.position[0]},${figure.position[1]})`}
             position={figure.position}
             figure={figure.figure}
-            color={color}
+            color={figure.color}
           />
         );
       })}
@@ -35,10 +35,7 @@ const AvailableMoves = () => {
     return null;
   }
 
-  const available = [
-    [3, 2],
-    // [6, 6],
-  ];
+  const available = [[3, 2]];
 
   return (
     <>
@@ -69,8 +66,7 @@ const App = () => {
       /> */}
         <Suspense fallback={null}>
           <Chessboard />
-          <Figures color="black" />
-          <Figures color="white" />
+          <Figures />
           <AvailableMoves />
         </Suspense>
         {/* <OrbitControls

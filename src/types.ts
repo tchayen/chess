@@ -7,8 +7,5 @@ export type Position = [number, number];
 export type Vector3 = [number, number, number];
 
 export type State = {
-  figures: {
-    white: { figure: Figure; position: Position }[];
-    black: { figure: Figure; position: Position }[];
-  };
+  figures: { figure: Figure; color: Color; position: Position }[];
 };
