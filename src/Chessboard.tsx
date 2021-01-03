@@ -10,7 +10,7 @@ const Chessboard = () => {
               <boxBufferGeometry attach="geometry" args={[1, 0, 1]} />
               <meshStandardMaterial
                 attach="material"
-                color={(x + y) % 2 === 0 ? 0x0 : 0xffffff}
+                color={(x + y) % 2 === 0 ? "#333" : "#888"}
               />
             </mesh>
           </group>

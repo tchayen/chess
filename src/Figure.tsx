@@ -24,7 +24,11 @@ const Figure = ({
     <group scale={[0.7, 0.7, 0.7]} position={adjusted} dispose={null}>
       <mesh
         onPointerOver={() => setHovered(position)}
-        onPointerOut={() => setHovered(null)}
+        onPointerOut={() => {
+          if (hovered !== null && arrayEqual(hovered, position)) {
+            setHovered(null);
+          }
+        }}
         geometry={nodes[figure].geometry}
       >
         <meshStandardMaterial
