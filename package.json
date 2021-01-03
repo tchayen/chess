@@ -1,0 +1,27 @@
+{
+  "name": "chess",
+  "version": "0.0.1",
+  "main": "index.html",
+  "scripts": {
+    "start": "parcel index.html"
+  },
+  "dependencies": {
+    "@react-three/drei": "^2.2.13",
+    "jotai": "^0.12.2",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-three-fiber": "^5.3.10",
+    "three": "^0.124.0"
+  },
+  "devDependencies": {
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "parcel": "^1.12.4",
+    "parcel-plugin-static-files-copy": "^2.5.0",
+    "typescript": "^4.1.3"
+  },
+  "staticFiles": {
+    "staticPath": "public",
+    "watcherGlob": "**"
+  }
+}
