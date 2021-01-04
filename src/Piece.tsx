@@ -52,9 +52,15 @@ const Piece = ({
   };
 
   const onPointerUp = () => {
-    if (hovered === null) {
+    // Don't allow to select piece with no available moves.
+    if (
+      hovered === null ||
+      (hovered.available.moves.length === 0 &&
+        hovered.available.takes.length === 0)
+    ) {
       return;
     }
+
     setHovered({ ...hovered, selected: true });
   };
 
