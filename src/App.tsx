@@ -114,8 +114,7 @@ const App = () => {
         camera={{ position: [4, 10, 0] }}
       >
         <Stats />
-        <ambientLight intensity={0.4} />
-
+        <ambientLight intensity={0.3} />
         <pointLight position={[-10, 0, -20]} color="purple" intensity={2.5} />
         <pointLight position={[0, -10, 0]} intensity={1.5} />
         <directionalLight
@@ -145,7 +144,7 @@ const App = () => {
             receiveShadow
           >
             <planeBufferGeometry attach="geometry" args={[100, 100]} />
-            <shadowMaterial attach="material" transparent opacity={0.4} />
+            <shadowMaterial attach="material" transparent opacity={0.3} />
           </mesh>
         </Suspense>
         {/* <OrbitControls

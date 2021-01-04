@@ -3,6 +3,23 @@ import { State } from "./types";
 const initial: State = {
   currentTurn: "white",
   figures: [
+    // //DEBUG
+    // {
+    //   piece: "bishop",
+    //   color: "white",
+    //   position: [4, 4],
+    // },
+    // {
+    //   piece: "king",
+    //   color: "white",
+    //   position: [2, 2],
+    // },
+    // {
+    //   piece: "rook",
+    //   color: "white",
+    //   position: [7, 2],
+    // },
+    // //
     {
       piece: "pawn",
       color: "black",
@@ -163,22 +180,6 @@ const initial: State = {
       piece: "rook",
       color: "white",
       position: [7, 7],
-    },
-    //DEBUG
-    {
-      piece: "bishop",
-      color: "white",
-      position: [4, 4],
-    },
-    {
-      piece: "king",
-      color: "white",
-      position: [2, 2],
-    },
-    {
-      piece: "rook",
-      color: "white",
-      position: [7, 2],
     },
   ],
   mapping: [[], [], [], [], [], [], [], []],
