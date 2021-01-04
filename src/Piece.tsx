@@ -1,7 +1,5 @@
-import { Piece, Position, Color } from "./types";
+import { Piece, Position, Color, Hovered, State } from "./types";
 import { useGLTF } from "@react-three/drei/useGLTF";
-import { useAtom } from "jotai";
-import { gameAtom, hoveredAtom } from "./state";
 import { arrayEqual } from "./utils";
 import getAvailableMoves from "./getAvailableMoves";
 
@@ -11,10 +9,16 @@ const Piece = ({
   piece,
   position,
   color,
+  game,
+  hovered,
+  setHovered,
 }: {
   piece: Piece;
   position: Position;
   color: Color;
+  game: State;
+  hovered: Hovered | null;
+  setHovered: (hovered: Hovered | null) => void;
 }) => {
   const { nodes } = useGLTF("/figures.gltf");
   const adjusted: [number, number, number] = [
@@ -22,8 +26,6 @@ const Piece = ({
     0,
     position[1] - 4,
   ];
-  const [game] = useAtom(gameAtom);
-  const [hovered, setHovered] = useAtom(hoveredAtom);
 
   const onPointerOver = () => {
     if (game.currentTurn !== color) {

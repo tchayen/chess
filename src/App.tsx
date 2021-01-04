@@ -1,17 +1,22 @@
 import { Canvas } from "react-three-fiber";
-import React, { Suspense } from "react";
+import React, { Suspense, useState } from "react";
 import { OrbitControls } from "@react-three/drei";
-import { Provider, useAtom } from "jotai";
-import { Figure, Position } from "./types";
+import { Hovered, State } from "./types";
 import Chessboard from "./Chessboard";
 import Piece from "./Piece";
-import { gameAtom, hoveredAtom } from "./state";
-import Square from "./Square";
 import HoverableSquare from "./HoverableSquare";
+import initial from "./initial";
 
-const Figures = () => {
+const Figures = ({
+  game,
+  hovered,
+  setHovered,
+}: {
+  game: State;
+  hovered: Hovered | null;
+  setHovered: (hovered: Hovered | null) => void;
+}) => {
   console.log("Figures");
-  const [game] = useAtom(gameAtom);
 
   return (
     <>
@@ -22,6 +27,9 @@ const Figures = () => {
             position={figure.position}
             piece={figure.piece}
             color={figure.color}
+            game={game}
+            hovered={hovered}
+            setHovered={setHovered}
           />
         );
       })}
@@ -29,15 +37,22 @@ const Figures = () => {
   );
 };
 
-const AvailableMoves = () => {
+const AvailableMoves = ({
+  game,
+  hovered,
+  setGame,
+  setHovered,
+}: {
+  game: State;
+  hovered: Hovered | null;
+  setGame: (hovered: State) => void;
+  setHovered: (hovered: Hovered | null) => void;
+}) => {
   console.log("AvailableMoves");
-  const [hovered] = useAtom(hoveredAtom);
 
   if (!hovered) {
     return null;
   }
-
-  console.log(hovered);
 
   return (
     <>
@@ -49,6 +64,10 @@ const AvailableMoves = () => {
           z={0.01}
           color={(hovered) => (hovered ? "#0000ff" : "#ff00ff")}
           size={0.5}
+          game={game}
+          hovered={hovered}
+          setGame={setGame}
+          setHovered={setHovered}
         />
       ))}
       {hovered.available.takes.map((move) => (
@@ -59,6 +78,10 @@ const AvailableMoves = () => {
           z={0.01}
           color={(hovered) => (hovered ? "#0000ff" : "#ff00ff")}
           size={0.9}
+          game={game}
+          hovered={hovered}
+          setGame={setGame}
+          setHovered={setHovered}
         />
       ))}
     </>
@@ -66,10 +89,13 @@ const AvailableMoves = () => {
 };
 
 const App = () => {
-  console.log("App");
+  const [game, setGame] = useState<State>(initial);
+  const [hovered, setHovered] = useState<Hovered | null>(null);
+
   return (
-    <Canvas concurrent pixelRatio={[1, 2]} camera={{ position: [4, 10, 0] }}>
-      <Provider>
+    <>
+      {game.currentTurn}
+      <Canvas concurrent pixelRatio={[1, 2]} camera={{ position: [4, 10, 0] }}>
         <ambientLight intensity={1} />
         {/* <spotLight
         intensity={1}
@@ -79,8 +105,13 @@ const App = () => {
       /> */}
         <Suspense fallback={null}>
           <Chessboard />
-          <Figures />
-          <AvailableMoves />
+          <Figures game={game} hovered={hovered} setHovered={setHovered} />
+          <AvailableMoves
+            game={game}
+            hovered={hovered}
+            setGame={setGame}
+            setHovered={setHovered}
+          />
         </Suspense>
         {/* <OrbitControls
         minPolarAngle={Math.PI / 2}
@@ -88,8 +119,8 @@ const App = () => {
         enableZoom={false}
         enablePan={false}
       /> */}
-      </Provider>
-    </Canvas>
+      </Canvas>
+    </>
   );
 };
 
