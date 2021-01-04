@@ -3,167 +3,188 @@ import { State } from "./types";
 const initial: State = {
   figures: [
     {
-      figure: "pawn",
+      piece: "pawn",
       color: "black",
       position: [0, 1],
     },
     {
-      figure: "pawn",
+      piece: "pawn",
       color: "black",
       position: [1, 1],
     },
     {
-      figure: "pawn",
+      piece: "pawn",
       color: "black",
       position: [2, 1],
     },
     {
-      figure: "pawn",
+      piece: "pawn",
       color: "black",
       position: [3, 1],
     },
     {
-      figure: "pawn",
+      piece: "pawn",
       color: "black",
       position: [4, 1],
     },
     {
-      figure: "pawn",
+      piece: "pawn",
       color: "black",
       position: [5, 1],
     },
     {
-      figure: "pawn",
+      piece: "pawn",
       color: "black",
       position: [6, 1],
     },
     {
-      figure: "pawn",
+      piece: "pawn",
       color: "black",
       position: [7, 1],
     },
     {
-      figure: "rook",
+      piece: "rook",
       color: "black",
       position: [0, 0],
     },
     {
-      figure: "knight",
+      piece: "knight",
       color: "black",
       position: [1, 0],
     },
     {
-      figure: "bishop",
+      piece: "bishop",
       color: "black",
       position: [2, 0],
     },
     {
-      figure: "queen",
+      piece: "queen",
       color: "black",
       position: [3, 0],
     },
     {
-      figure: "king",
+      piece: "king",
       color: "black",
       position: [4, 0],
     },
     {
-      figure: "bishop",
+      piece: "bishop",
       color: "black",
       position: [5, 0],
     },
     {
-      figure: "knight",
+      piece: "knight",
       color: "black",
       position: [6, 0],
     },
     {
-      figure: "rook",
+      piece: "rook",
       color: "black",
       position: [7, 0],
     },
 
     {
-      figure: "pawn",
+      piece: "pawn",
       color: "white",
       position: [0, 6],
     },
     {
-      figure: "pawn",
+      piece: "pawn",
       color: "white",
       position: [1, 6],
     },
     {
-      figure: "pawn",
+      piece: "pawn",
       color: "white",
       position: [2, 6],
     },
     {
-      figure: "pawn",
+      piece: "pawn",
       color: "white",
       position: [3, 6],
     },
     {
-      figure: "pawn",
+      piece: "pawn",
       color: "white",
       position: [4, 6],
     },
     {
-      figure: "pawn",
+      piece: "pawn",
       color: "white",
       position: [5, 6],
     },
     {
-      figure: "pawn",
+      piece: "pawn",
       color: "white",
       position: [6, 6],
     },
     {
-      figure: "pawn",
+      piece: "pawn",
       color: "white",
       position: [7, 6],
     },
     {
-      figure: "rook",
+      piece: "rook",
       color: "white",
       position: [0, 7],
     },
     {
-      figure: "knight",
+      piece: "knight",
       color: "white",
       position: [1, 7],
     },
     {
-      figure: "bishop",
+      piece: "bishop",
       color: "white",
       position: [2, 7],
     },
     {
-      figure: "queen",
+      piece: "queen",
       color: "white",
       position: [3, 7],
     },
     {
-      figure: "king",
+      piece: "king",
       color: "white",
       position: [4, 7],
     },
     {
-      figure: "bishop",
+      piece: "bishop",
       color: "white",
       position: [5, 7],
     },
     {
-      figure: "knight",
+      piece: "knight",
       color: "white",
       position: [6, 7],
     },
     {
-      figure: "rook",
+      piece: "rook",
       color: "white",
       position: [7, 7],
     },
+    //DEBUG
+    {
+      piece: "bishop",
+      color: "white",
+      position: [4, 4],
+    },
+    {
+      piece: "king",
+      color: "white",
+      position: [2, 2],
+    },
+    {
+      piece: "rook",
+      color: "white",
+      position: [7, 2],
+    },
   ],
+  mapping: [[], [], [], [], [], [], [], []],
 };
+
+initial.figures.forEach((figure) => {
+  initial.mapping[figure.position[0]][figure.position[1]] = figure;
+});
 
 export default initial;

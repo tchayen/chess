@@ -1,18 +1,17 @@
-import { Figure, Position, Color } from "./types";
+import { Piece, Position, Color } from "./types";
 import { useGLTF } from "@react-three/drei/useGLTF";
-import { useState } from "react";
 import { useAtom } from "jotai";
 import { hoveredAtom } from "./state";
 import { arrayEqual } from "./utils";
 
 useGLTF.preload("/figures.gltf");
 
-const Figure = ({
+const Piece = ({
   figure,
   position,
   color,
 }: {
-  figure: Figure;
+  figure: Piece;
   position: Position;
   color: Color;
 }) => {
@@ -43,4 +42,4 @@ const Figure = ({
   );
 };
 
-export default Figure;
+export default Piece;
