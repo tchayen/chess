@@ -76,6 +76,7 @@ const Piece = ({
   return (
     <group scale={[0.7, 0.7, 0.7]} position={adjusted} dispose={null}>
       <mesh
+        castShadow
         onPointerOver={onPointerOver}
         onPointerOut={onPointerOut}
         onPointerUp={onPointerUp}
