@@ -23,7 +23,7 @@ const Figures = ({
   hovered: Hovered | null;
   setHovered: (hovered: Hovered | null) => void;
 }) => {
-  console.log("Figures");
+  console.log("render: <Figures />");
 
   return (
     <>
@@ -55,7 +55,7 @@ const AvailableMoves = ({
   setGame: (hovered: State) => void;
   setHovered: (hovered: Hovered | null) => void;
 }) => {
-  console.log("AvailableMoves");
+  console.log("render: <AvailableMoves />");
 
   if (!hovered) {
     return null;
@@ -96,6 +96,7 @@ const AvailableMoves = ({
 };
 
 const App = () => {
+  console.log("render: <App />");
   const [game, setGame] = useState<State>(initial);
   const [hovered, setHovered] = useState<Hovered | null>(null);
 
@@ -147,12 +148,6 @@ const App = () => {
             <shadowMaterial attach="material" transparent opacity={0.3} />
           </mesh>
         </Suspense>
-        {/* <OrbitControls
-        minPolarAngle={Math.PI / 2}
-        maxPolarAngle={Math.PI / 2}
-        enableZoom={false}
-        enablePan={false}
-      /> */}
       </Canvas>
     </>
   );

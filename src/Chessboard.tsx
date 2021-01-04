@@ -1,7 +1,7 @@
 import Square from "./Square";
 
 const Chessboard = () => {
-  console.log("Chessboard");
+  console.log("render: <Chessboard />");
   const fields = [0, 1, 2, 3, 4, 5, 6, 7];
 
   return (
