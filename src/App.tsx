@@ -102,12 +102,6 @@ const App = () => {
 
   return (
     <>
-      <div
-        className="turn"
-        style={{ color: game.currentTurn === "black" ? "#000" : "#fff" }}
-      >
-        {game.currentTurn}
-      </div>
       <Canvas
         concurrent
         shadowMap

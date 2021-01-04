@@ -3,7 +3,7 @@ import { useGLTF } from "@react-three/drei/useGLTF";
 import { arrayEqual } from "./utils";
 import getAvailableMoves from "./getAvailableMoves";
 
-useGLTF.preload("/figures.gltf");
+// useGLTF.preload("/figures.gltf");
 
 const Piece = ({
   piece,
