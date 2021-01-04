@@ -1,42 +1,75 @@
 import { Piece, Position, Color } from "./types";
 import { useGLTF } from "@react-three/drei/useGLTF";
 import { useAtom } from "jotai";
-import { hoveredAtom } from "./state";
+import { gameAtom, hoveredAtom } from "./state";
 import { arrayEqual } from "./utils";
+import getAvailableMoves from "./getAvailableMoves";
 
 useGLTF.preload("/figures.gltf");
 
 const Piece = ({
-  figure,
+  piece,
   position,
   color,
 }: {
-  figure: Piece;
+  piece: Piece;
   position: Position;
   color: Color;
 }) => {
   const { nodes } = useGLTF("/figures.gltf");
-  const adjusted = [position[0] - 4, 0, position[1] - 4];
+  const adjusted: [number, number, number] = [
+    position[0] - 4,
+    0,
+    position[1] - 4,
+  ];
+  const [game] = useAtom(gameAtom);
   const [hovered, setHovered] = useAtom(hoveredAtom);
+
+  const onPointerOver = () => {
+    if (game.currentTurn !== color) {
+      return;
+    }
+
+    if (hovered?.selected) {
+      return;
+    }
+    const available = getAvailableMoves(game, position);
+    setHovered(
+      available ? { position, selected: false, available: available! } : null
+    );
+  };
+
+  const onPointerOut = () => {
+    if (
+      hovered !== null &&
+      !hovered.selected &&
+      arrayEqual(hovered.position, position)
+    ) {
+      setHovered(null);
+    }
+  };
+
+  const onPointerUp = () => {
+    if (hovered === null) {
+      return;
+    }
+    setHovered({ ...hovered, selected: true });
+  };
+
+  const calculatedColor =
+    hovered !== null && arrayEqual(hovered.position, position)
+      ? "#ff00ff"
+      : color;
 
   return (
     <group scale={[0.7, 0.7, 0.7]} position={adjusted} dispose={null}>
       <mesh
-        onPointerOver={() => setHovered(position)}
-        onPointerOut={() => {
-          if (hovered !== null && arrayEqual(hovered, position)) {
-            setHovered(null);
-          }
-        }}
-        geometry={nodes[figure].geometry}
+        onPointerOver={onPointerOver}
+        onPointerOut={onPointerOut}
+        onPointerUp={onPointerUp}
+        geometry={nodes[piece].geometry}
       >
-        <meshStandardMaterial
-          color={
-            hovered !== null && arrayEqual(hovered, position)
-              ? "#ff00ff"
-              : color
-          }
-        />
+        <meshStandardMaterial color={calculatedColor} />
       </mesh>
     </group>
   );

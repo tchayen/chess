@@ -12,7 +12,17 @@ export type Figure = {
   position: Position;
 };
 
+export type Hovered = {
+  position: Position;
+  selected: boolean;
+  available: {
+    moves: Position[];
+    takes: Position[];
+  };
+};
+
 export type State = {
+  currentTurn: Color;
   figures: Figure[];
   mapping: any[][];
 };

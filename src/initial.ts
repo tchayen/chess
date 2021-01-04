@@ -1,6 +1,7 @@
 import { State } from "./types";
 
 const initial: State = {
+  currentTurn: "white",
   figures: [
     {
       piece: "pawn",
