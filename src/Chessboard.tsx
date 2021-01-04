@@ -13,7 +13,7 @@ const Chessboard = () => {
             x={x}
             y={y}
             size={1}
-            color={(x + y) % 2 === 0 ? "#333" : "#888"}
+            color={(x + y) % 2 === 0 ? "#666" : "#aaa"}
           />
         ))
       )}

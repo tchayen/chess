@@ -23,7 +23,9 @@ const Piece = ({
   const { nodes } = useGLTF("/figures.gltf");
   const adjusted: [number, number, number] = [
     position[0] - 4,
-    0,
+    hovered && hovered.selected && arrayEqual(hovered.position, position)
+      ? 1
+      : 0,
     position[1] - 4,
   ];
 
@@ -67,7 +69,9 @@ const Piece = ({
   const calculatedColor =
     hovered !== null && arrayEqual(hovered.position, position)
       ? "#ff00ff"
-      : color;
+      : color === "white"
+      ? "#fff"
+      : "#111";
 
   return (
     <group scale={[0.7, 0.7, 0.7]} position={adjusted} dispose={null}>

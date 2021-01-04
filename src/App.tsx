@@ -1,3 +1,8 @@
+// TODO:
+// - Better visual effects.
+// - Animations.
+// - Special moves (en passant, castling, promotion, chess).
+
 import { Canvas } from "react-three-fiber";
 import React, { Suspense, useState } from "react";
 import { OrbitControls } from "@react-three/drei";
@@ -94,15 +99,21 @@ const App = () => {
 
   return (
     <>
-      {game.currentTurn}
+      <div
+        className="turn"
+        style={{ color: game.currentTurn === "black" ? "#000" : "#fff" }}
+      >
+        {game.currentTurn}
+      </div>
       <Canvas concurrent pixelRatio={[1, 2]} camera={{ position: [4, 10, 0] }}>
-        <ambientLight intensity={1} />
+        <ambientLight intensity={0.3} />
         {/* <spotLight
         intensity={1}
         angle={0.1}
         penumbra={1}
         position={[5, 25, 20]}
       /> */}
+        <directionalLight color={"#fff"} intensity={1} position={[4, 10, 4]} />
         <Suspense fallback={null}>
           <Chessboard />
           <Figures game={game} hovered={hovered} setHovered={setHovered} />
