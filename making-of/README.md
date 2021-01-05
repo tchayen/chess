@@ -59,9 +59,9 @@ For a given coordinate, I check:
 I have a helper that checks a given direction (specified as `{ x: -1 | 0 | 1, y: -1 | 0 | 1 }`, which expresses any diagonal, horizontal or vertical movement in both directions) and goes on until:
 - It goes out of the chessboard.
 - It exceeds range (usually no limit, implemented as `8`, or 1 field).
-- It finds another piece (if ally then skip, if enemy then recognize it as possible attack move).
+- It finds another piece (if the same color then stop there, if enemy then recognize it as possible attack move).
 
-For pawns I use a coincidence (but I don't really have to worry about the rules of chess changing or getting more complex any time soon, right?) which assumes that a white pawn on `y === 6` or a black one on `y === 1` is entitled to make the initial, 2-field-long move.
+For pawns I use an assumption (but I don't really have to worry about the rules of chess changing or getting more complex any time soon, right?) that a white pawn on `y === 6` or a black one on `y === 1` is entitled to make the initial, 2-field-long move.
 
 I haven't implemented castling, promotion or en passant as I was able to get away with not having them for the demo video (oops).
 
@@ -78,13 +78,13 @@ As a lazy React developer, I put all the actual logic wherever the final press e
 
 I check if there is some piece on the target field (then it's an attack) or not (a move). I update my `field -> Piece | null` mapping array (most likely buggy, but works reasonably well for the first few moves).
 
-Then the tricky part happens: `hovered` element becomes `null` (re-render alert for `<AvailableMoves />` and `<Figures />; basically pink color disappears from the screen). Game state is updated (the changes I mentioned in the previous paragraph come to live and current turn is passed to the other player).
+Then the tricky part happens: `hovered` element becomes `null` (re-render alert for `<AvailableMoves />` and `<Figures />`; basically pink color disappears from the screen). Game state is updated (the changes I mentioned in the previous paragraph come to life and current turn is passed to the other player).
 
 ## Getting fancy
 
-Presentation is unarguably important aspect. It's most likely the deciding factor for the fact that you are actually reading this note.
+Presentation plays important role in any visual-heavy project. It's most likely the deciding factor for why you are actually reading this note.
 
-I have (limited) experience with 3D modelling and wanted to finish it quickly so I went for simple tricks: directional lighting to make anything visible, shadows for being realistic and additional point lights for fancy glares.
+I have (limited) experience with 3D modelling and wanted to finish it quickly so I went for simple tricks: directional lighting to make everything visible, shadows for realism's sake and additional point lights for fancy glares.
 
 ![Comparison before and after effects](comparison.png)
 
@@ -99,9 +99,9 @@ This demo lacks at least several things:
 
 ## Thanks for reading!
 
-Hope it was informative and met your expectations. If any part was unclear or you have any more questions feel free to mention/DM me on [Twitter](https://twitter.com/tchayen).
+Hope this was informative and met your expectations. If any part was unclear or you have any more questions feel free to mention/DM me on [Twitter](https://twitter.com/tchayen).
 
-I think it's also a good place to thank people without whom I wouldn't be writing it now:
+I think this is also a good place to thank some people without whom I wouldn't be writing this now:
 - [@wojtus_7](https://twitter.com/wojtus_7), my friend who started playing with chess-oriented demo recently and inspired me to give it a try.
 - [@0xca0a](https://twitter.com/0xca0a), who is the person behind `react-three-fiber`.
 - [@aivandroid](https://twitter.com/aivandroid), who asked me to create a blog/video of the development process.
