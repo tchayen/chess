@@ -1,6 +1,6 @@
 # Making of: 3D Chess in React
 
-Recently I made a tiny demo where I implemented a subset of the chess game, made it in 3D and implemented using React exclusively for the job. It will be a quick summary of what and how happened.
+Recently I made a tiny demo where I implemented a subset of the chess game, made it in 3D and implemented using React exclusively for the job. It will be a quick summary of what happened and how it happened.
 
 ![Screenshot of the final effect](example.png)
 
@@ -12,13 +12,13 @@ I some have experience with Blender so I quickly put together a set of geometric
 
 ## Three.js in React
 
-In order to display them I had to go for WebGL as usual with 3D rendering on the web. [Normally](https://tchayen.github.io/brief-explanation-of-webgl/) I like to do it all myself, but this time I decided that maybe instead of spending a week on proving a point that I can do it myself I might rather finish a project.
+In order to display them I had to go for WebGL as usual with 3D rendering on the web. [Normally](https://tchayen.github.io/brief-explanation-of-webgl/) I like to do it all myself, but this time I decided that maybe instead of spending a week on proving a point that I can do it myself, I might rather finish the project.
 
 So here we go, Three.js to make handling 3D easier than usual and `react-three-fiber` because it exists and I really want to check it out.
 
-First thing that is mind blowing to me is that I can write Three.js as React. How? Custom renderers. There is a great [talk from React Conf 2019](https://conf.reactjs.org/event.html?sophiebits) that explains how it works.
+First thing that is mind blowing to me is that I can define Three.js in JSX. How? Custom renderers. There is a great [talk from React Conf 2019](https://conf.reactjs.org/event.html?sophiebits) that explains how it works.
 
-A kind of magic and somehow it goes well with regular React too, so sometimes it might be tricky to remember about all caveats that apply there. For example, rendering context is not passed to the inner renderer, so if you have a state library with a state provider outside in the React context, you will have to [pass it to the inside one](https://github.com/pmndrs/react-three-fiber/blob/master/markdown/api.md#consuming-context-from-a-foreign-provider).
+What's even greater, you can mix JSX targetting this renderer with regular React for React DOM too, so Three.js elements can be nested in regular React. Although, sometimes it might be tricky to remember about all caveats that apply there. For example, rendering context is not passed to the inner renderer, so if you have a state library with a state provider outside in the React context, you will have to [pass it to the inside one](https://github.com/pmndrs/react-three-fiber/blob/master/markdown/api.md#consuming-context-from-a-foreign-provider).
 
 This is how it looks like in practice:
 
@@ -35,7 +35,7 @@ This is how it looks like in practice:
 
 ### Chessboard
 
-Not everything has to be modelled and imported. For example chessboard is easy to achieve using simple shapes (simplified `Square.tsx`):
+Not everything has to be modeled and imported. For example chessboard is easy to achieve using simple shapes (simplified `Square.tsx`):
 
 ```jsx
 <group position={[x, 0, y]}>
@@ -46,17 +46,17 @@ Not everything has to be modelled and imported. For example chessboard is easy t
 </group>
 ```
 
-It can be probably even simpler than this since if I remember correctly there is `Plane` as a primitive type but I haven't looked into that too much.
+It can be probably even simpler than this, since – if I remember correctly – there is `Plane` as a primitive type but I haven't looked into that too much.
 
 ## Implementing chess
 
-Basically all game logic happens in one place here – when showing available moves. It is probably not the most readable or concise you will see, but was very quick to come up with and implement.
+Basically all game logic happens in one place here – when showing available moves. It is probably not the most readable or concise implementation you will see, but was straightforward to define and implement.
 
 For a given coordinate, I check:
-- If there is a piece on it.
+- If there is a piece there.
 - What is its type.
 
-I have helper that checks a given direction (specified as `{ x: -1 | 0 | 1, y: -1 | 0 | 1 }`, which allows to express any diagonal, horizontal or vertical movement in both directions) and goes on until:
+I have a helper that checks a given direction (specified as `{ x: -1 | 0 | 1, y: -1 | 0 | 1 }`, which expresses any diagonal, horizontal or vertical movement in both directions) and goes on until:
 - It goes out of the chessboard.
 - It exceeds range (usually no limit, implemented as `8`, or 1 field).
 - It finds another piece (if ally then skip, if enemy then recognize it as possible attack move).
